@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import axios from '../../axios';
+import axios from '../../../axios';
 
 import classes from './NewPost.module.css';
 
@@ -9,6 +9,10 @@ class NewPost extends Component {
         title: '',
         content: '',
         author: 'Max'
+    }
+    
+    componentDidMount() {
+        console.log(this.props);
     }
 
     postDataHandler = () => {
