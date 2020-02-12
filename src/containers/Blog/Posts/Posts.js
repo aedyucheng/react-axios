@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import axios from '../../../axios';
 import Post from '../../../components/Post/Post';
 
 import classes from './Posts.module.css';
+import FullPost from '../FullPost/FullPost';
 
 class Posts extends Component {
     state = {
@@ -27,7 +29,7 @@ class Posts extends Component {
     }
 
     postClickHandler = (id) => {
-        this.props.history.push({pathname: '/' + id});
+        this.props.history.push({ pathname: '/posts/' + id });
         // this.setState({ selectedPostId: id });
     }
 
@@ -37,21 +39,26 @@ class Posts extends Component {
             posts = this.state.posts.map(post => {
                 return (
                     // <Link to={"/" + post.id} key={post.id} >
-                        <Post  
-                            key={post.id} 
-                            title={post.title}
-                            author={post.author}
-                            clicked={() => this.postClickHandler(post.id)}
-                        />
+                    <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        clicked={() => this.postClickHandler(post.id)}
+                    />
                     // </Link>
                 );
             });
         }
 
         return (
-            <section className={classes.Posts}>
-                {posts}
-            </section>
+            <div>
+                <section className={classes.Posts}>
+                    {posts}
+                </section>
+                <Route path={this.props.match.url + "/:id"} exact component={FullPost} />
+
+            </div>
+
         );
     }
 }
