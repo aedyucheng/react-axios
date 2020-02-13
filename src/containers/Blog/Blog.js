@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import Posts from '../Blog/Posts/Posts';
-import NewPost from '../Blog/NewPost/NewPost';
+// import NewPost from '../Blog/NewPost/NewPost';
 
 import './Blog.css';
+
+const NewPost = React.lazy(() => import('../Blog/NewPost/NewPost'));
 
 class Blog extends Component {
 
@@ -33,7 +35,12 @@ class Blog extends Component {
                 </header>
                 <Switch>
                     {/* <Route path="/posts" exact render={() => <Posts />} /> */}
-                    <Route path="/new-post" component={NewPost} />
+                    <Route path="/new-post" 
+                        render={() => (
+                        <Suspense fallback={<div>loading...</div>}>
+                            <NewPost />
+                        </Suspense>
+                        )} /> 
                     <Route path="/posts" component={Posts} />
                     <Redirect from="/" to="/posts" />
                 </Switch>

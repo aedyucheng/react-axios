@@ -25,7 +25,9 @@ class Posts extends Component {
                 });
                 this.setState({ posts: updatePosts });
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     postClickHandler = (id) => {
